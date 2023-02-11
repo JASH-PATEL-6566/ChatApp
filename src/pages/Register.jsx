@@ -9,7 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 const Register = () => {
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         setLoading(true);
@@ -48,8 +48,8 @@ const Register = () => {
                         });
                         setLoading(false);
                         //create empty user chats on firestore
-                        // await setDoc(doc(db, "userChats", res.user.uid), {});
-                        // navigate("/");
+                        await setDoc(doc(db, "userChats", res.user.uid), {});
+                        navigate("/");
                     } catch (err) {
                         console.log(err);
                         setErr(true);
@@ -82,14 +82,16 @@ const Register = () => {
                         <img src={Add} alt="" />
                         <span>Add an avatar</span>
                     </label>
-                    <button disabled={loading}>Sign up</button>
+                    <button type="submit" disabled={loading}>
+                        Sign up
+                    </button>
                     {loading &&
                         "Uploading and compressing the image please wait..."}
                     {err && <span>Something went wrong</span>}
                 </form>
-                {/* <p>
-                    You do have an account? <Link to="/register">Login</Link>
-                </p> */}
+                <p>
+                    You do have an account? <Link to="/login">Login</Link>
+                </p>
             </div>
         </div>
     );
